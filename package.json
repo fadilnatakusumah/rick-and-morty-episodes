@@ -1,6 +1,7 @@
 {
   "name": "rick-and-morty-app",
   "homepage": "https://fadilnatakusumah.github.io/rick-and-morty-episodes",
+  "proxy": "https://fadilnatakusumah.github.io/rick-and-morty-episodes",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy":"yarn build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

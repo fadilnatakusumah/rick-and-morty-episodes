@@ -35,8 +35,8 @@ function App(): JSX.Element {
           {({ location }) => (
             <React.Fragment>
               <Router>
-                <Home path={`${location.pathname}/`} />
-                <Favorites path={`${location.pathname}/favorites`} />
+                <Home path={`/`} />
+                <Favorites path={`/favorites`} />
               </Router>
             </React.Fragment>
           )}
