@@ -13,7 +13,7 @@ import './App.css';
 import { StoreProvider } from './store/'
 
 // solve routing problem
-let source = createMemorySource('/');
+let source = createMemorySource('https://fadilnatakusumah.github.io/rick-and-morty-episodes/');
 let history = createHistory(source)
 
 // StoreProvider 
