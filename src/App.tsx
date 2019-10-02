@@ -1,12 +1,22 @@
 import React from 'react';
-import { Router, Link, RouteComponentProps, Location } from '@reach/router'
+import {
+  Router, Link, RouteComponentProps,
+  createMemorySource,
+  createHistory,
+  LocationProvider
+} from '@reach/router'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 import './App.css';
+import { StoreProvider } from './store/'
+
+// solve routing problem
+let source = createMemorySource('/');
+let history = createHistory(source)
 
 // StoreProvider 
-import { StoreProvider } from './store/'
 
 // Helper for Lazy Route Component problem
 function createLazyRoute<T extends RouteComponentProps>(RouteComponent: React.ComponentType<T>) {
@@ -31,16 +41,14 @@ function App(): JSX.Element {
   return (
     <StoreProvider>
       <div className="pages">
-        <Location>
-          {({ location }) => (
-            <React.Fragment>
-              <Router>
-                <Home path={`/`} />
-                <Favorites path={`/favorites`} />
-              </Router>
-            </React.Fragment>
-          )}
-        </Location>
+        <LocationProvider history={history}>
+          <React.Fragment>
+            <Router>
+              <Home path={`/`} />
+              <Favorites path={`/favorites`} />
+            </Router>
+          </React.Fragment>
+        </LocationProvider>
       </div>
       <nav className="navbar">
         <div>
