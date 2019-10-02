@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, RouteComponentProps } from '@reach/router';
+import { HashRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Wrapper from './components/wrapper';
@@ -8,7 +8,9 @@ import Wrapper from './components/wrapper';
 
 ReactDOM.render(
   <Wrapper>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </Wrapper>
   , document.getElementById('root'));
 

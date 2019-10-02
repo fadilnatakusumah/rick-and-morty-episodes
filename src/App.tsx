@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Router, Link, RouteComponentProps,
-  createMemorySource,
-  createHistory,
-  LocationProvider
-} from '@reach/router'
+import { Link, HashRouter as Router, Route } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faHeart } from '@fortawesome/free-solid-svg-icons'
@@ -12,43 +7,39 @@ import { faHome, faHeart } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
 import { StoreProvider } from './store/'
 
-// solve routing problem
-let source = createMemorySource('https://fadilnatakusumah.github.io/rick-and-morty-episodes/');
-let history = createHistory(source)
-
 // StoreProvider 
 
 // Helper for Lazy Route Component problem
-function createLazyRoute<T extends RouteComponentProps>(RouteComponent: React.ComponentType<T>) {
-  return function (props: T) {
-    return (
-      <React.Suspense fallback={<h5>Loading...</h5>}>
-        <RouteComponent {...props} />
-      </React.Suspense>
-    );
-  };
-}
+// function createLazyRoute<T extends RouteComponentProps>(RouteComponent: React.ComponentType<T>) {
+//   return function (props: T) {
+//     return (
+//       <React.Suspense fallback={<h5>Loading...</h5>}>
+//         <RouteComponent {...props} />
+//       </React.Suspense>
+//     );
+//   };
+// }
 
 // Pages
-const Home = createLazyRoute(
-  React.lazy(() => import('./pages/Home'))
-);
-const Favorites = createLazyRoute(
-  React.lazy(() => import('./pages/Favorites'))
-);
+const Home = React.lazy(() => import('./pages/Home'))
+const Favorites = React.lazy(() => import('./pages/Favorites'))
 
 function App(): JSX.Element {
   return (
     <StoreProvider>
       <div className="pages">
-        <LocationProvider history={history}>
-          <React.Fragment>
-            <Router>
-              <Home path={`/`} />
-              <Favorites path={`/favorites`} />
-            </Router>
-          </React.Fragment>
-        </LocationProvider>
+        <React.Fragment>
+          <Route exact path={'/'} render={() => (
+            <React.Suspense fallback={<h4>Loading...</h4>}>
+              <Home />
+            </React.Suspense>
+          )} />
+          <Route path={'/favorites'} render={() => (
+            <React.Suspense fallback={<h4>Loading...</h4>}>
+              <Favorites />
+            </React.Suspense>
+          )} />
+        </React.Fragment>
       </div>
       <nav className="navbar">
         <div>
