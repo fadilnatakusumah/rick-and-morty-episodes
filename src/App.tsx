@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Link, RouteComponentProps } from '@reach/router'
+import { Router, Link, RouteComponentProps, Location } from '@reach/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faHeart } from '@fortawesome/free-solid-svg-icons'
 
@@ -31,10 +31,16 @@ function App(): JSX.Element {
   return (
     <StoreProvider>
       <div className="pages">
-        <Router>
-          <Home path={'/'} />
-          <Favorites path={'/favorites'} />
-        </Router>
+        <Location>
+          {({ location }) => (
+            <React.Fragment>
+              <Router>
+                <Home path={`${location.pathname}/`} />
+                <Favorites path={`${location.pathname}/favorites`} />
+              </Router>
+            </React.Fragment>
+          )}
+        </Location>
       </div>
       <nav className="navbar">
         <div>
